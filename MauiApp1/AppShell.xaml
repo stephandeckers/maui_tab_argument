@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiApp1.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:MauiApp1"
+	xmlns:views="clr-namespace:MauiApp1.Pages"
+    Shell.FlyoutBehavior="Disabled">
+
+	<FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+		<Tab Title="Shell item1">
+			<ShellContent Title="T1" ContentTemplate="{DataTemplate views:Tab1}" />
+			<ShellContent Title="T2" ContentTemplate="{DataTemplate views:Tab2}" />
+		</Tab>
+	</FlyoutItem>
+
+</Shell>
