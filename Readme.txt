@@ -1,5 +1,4 @@
-Tabs in dotnet maui have an 'OnAppearing' event which you would expect to be called each time a tab is activated to support initialisation. This is not the case and a 
-possible workaround is to initialize data in a static manner and pass arguments using the '<x:Arguments>' construct
+Tabs in dotnet maui have an 'OnAppearing' event which you would expect to be called each time a tab is activated and it would be an ideal candidate to support initialisation. This however is not the case and a possible workaround is to initialize data in a static manner and pass arguments using the '<x:Arguments>' construct
 
 links:
 
