@@ -49,6 +49,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Pages\Tab3.xaml.cs">
+	    <DependentUpon>Tab3.xaml</DependentUpon>
+	  </Compile>
 	  <Compile Update="Pages\tab2.xaml.cs">
 	    <DependentUpon>Tab2.xaml</DependentUpon>
 	  </Compile>
@@ -59,6 +62,9 @@
 
 	<ItemGroup>
 	  <MauiXaml Update="Pages\Tab1.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\Tab3.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Pages\Tab2.xaml">

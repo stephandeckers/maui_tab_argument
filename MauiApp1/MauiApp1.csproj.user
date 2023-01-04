@@ -11,6 +11,9 @@
     <MauiXaml Update="Pages\Tab1.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Pages\Tab3.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Pages\Tab2.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

@@ -10,12 +10,25 @@ namespace MauiApp1.Data
 {
 	public class ItemViewModel : INotifyPropertyChanged
 	{
+		public ItemViewModel( )	{}
+
 		public ItemViewModel( int categoryId)
 		{
 			this.ItemCollection = new ObservableCollection<Item>( );
 
 			for( int i = 0; i < 4; i++)
 			{
+				this.ItemCollection.Add( new Item( ) { Name = $"V1-{categoryId}", Description = $"c{categoryId}/T1 rocks"});
+			}
+		}
+
+		public ItemViewModel( int[] categoryIds)
+		{
+			this.ItemCollection = new ObservableCollection<Item>( );
+
+			for( int i = 0; i < categoryIds.Length; i++ )
+			{
+				int categoryId = categoryIds[i];
 				this.ItemCollection.Add( new Item( ) { Name = $"V1-{categoryId}", Description = $"c{categoryId}/T1 rocks"});
 			}
 		}

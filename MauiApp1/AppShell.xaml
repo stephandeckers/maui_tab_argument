@@ -11,6 +11,7 @@
 		<Tab Title="Shell item1">
 			<ShellContent Title="T1" ContentTemplate="{DataTemplate views:Tab1}" />
 			<ShellContent Title="T2" ContentTemplate="{DataTemplate views:Tab2}" />
+			<ShellContent Title="T3" ContentTemplate="{DataTemplate views:Tab3}" />
 		</Tab>
 	</FlyoutItem>
 

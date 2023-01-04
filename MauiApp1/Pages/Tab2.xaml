@@ -12,10 +12,13 @@
 			</x:Arguments>
 		</local:ItemViewModel>
 	</ContentPage.BindingContext>
-	
-	<CollectionView x:Name="collectionView" 
+
+	<VerticalStackLayout>
+		<Label Text="Integers as argument"/>
+		<CollectionView x:Name="collectionView" 
 					Margin="5"
                     ItemTemplate="{StaticResource DataTemplate1}"
 					ItemsSource="{Binding ItemCollection}"
                     SelectionMode="Single" />
+	</VerticalStackLayout>
 </ContentPage>
