@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.Pages.Tab1"
-			 xmlns:local="clr-namespace:MauiApp1.Data"
-			 Title="Tab1">
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MauiApp1.Pages.Tab1" xmlns:local="clr-namespace:MauiApp1.Data" Title="Tab1">
 
 	<ContentPage.BindingContext>
 		<local:ItemViewModel>
@@ -15,10 +11,7 @@
 
 	<VerticalStackLayout>
 		<Label Text="Integers as argument"/>
-		<CollectionView x:Name="collectionView" 
-					Margin="5"
-                    ItemTemplate="{StaticResource DataTemplate1}"
-					ItemsSource="{Binding ItemCollection}"
-                    SelectionMode="Single" />
+		<CollectionView x:Name="collectionView" Margin="5" ItemTemplate="{StaticResource DataTemplate1}" ItemsSource="{Binding ItemCollection}" SelectionMode="Single" />
 	</VerticalStackLayout>
+	
 </ContentPage>

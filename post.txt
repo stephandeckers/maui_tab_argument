@@ -1,0 +1,123 @@
+<p>Tabs in dotnet maui have an 'OnAppearing' event which you would expect to be called each time a tab is activated. This however is <a href="https://github.com/dotnet/maui/issues/9531" target="_blank" rel="noopener">not the case</a> and a possible workaround is to initialize data in a static manner and pass arguments using the <a href="https://learn.microsoft.com/en-us/dotnet/maui/xaml/pass-arguments?view=net-maui-6.0" target="_blank" rel="noopener">'Arguments'</a>-construct like shown in this post :</p>
+<p><b>Tab1:</b></p>
+[sourcecode language="xml"]
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MauiApp1.Pages.Tab1" xmlns:local="clr-namespace:MauiApp1.Data" Title="Tab1">
+
+	<ContentPage.BindingContext>
+		<local:ItemViewModel>
+			<x:Arguments>
+				<x:Int32>10</x:Int32>
+			</x:Arguments>
+		</local:ItemViewModel>
+	</ContentPage.BindingContext>
+
+	<VerticalStackLayout>
+		<Label Text="Integers as argument"/>
+		<CollectionView x:Name="collectionView" Margin="5" ItemTemplate="{StaticResource DataTemplate1}" ItemsSource="{Binding ItemCollection}" SelectionMode="Single" />
+	</VerticalStackLayout>
+	
+</ContentPage>
+[/sourcecode]
+<p><b>Tab2:</b></p>
+[sourcecode language="xml"]
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MauiApp1.Pages.Tab2" xmlns:local="clr-namespace:MauiApp1.Data" Title="Tab2" >
+
+	<ContentPage.BindingContext>
+		<local:ItemViewModel>
+			<x:Arguments>
+				<x:Int32>20</x:Int32>
+			</x:Arguments>
+		</local:ItemViewModel>
+	</ContentPage.BindingContext>
+
+	<VerticalStackLayout>
+		<Label Text="Integers as argument"/>
+		<CollectionView x:Name="collectionView" Margin="5" ItemTemplate="{StaticResource DataTemplate1}" ItemsSource="{Binding ItemCollection}" SelectionMode="Single" />
+	</VerticalStackLayout>
+	
+</ContentPage>
+[/sourcecode]
+<p><b>Tab3:</b></p>
+[sourcecode language="xml"]
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MauiApp1.Pages.Tab3" xmlns:local="clr-namespace:MauiApp1.Data" Title="Array of integers" >
+
+	<ContentPage.BindingContext>
+		<local:ItemViewModel>
+			<x:Arguments>
+				<x:Array Type="{x:Type x:Int32}">
+					<x:Int32>10</x:Int32>
+					<x:Int32>11</x:Int32>
+					<x:Int32>12</x:Int32>
+					<x:Int32>13</x:Int32>
+					<x:Int32>14</x:Int32>
+					<x:Int32>15</x:Int32>
+				</x:Array>
+			</x:Arguments>
+		</local:ItemViewModel>
+	</ContentPage.BindingContext>
+
+	<VerticalStackLayout>
+		<Label Text="Array of integers as arguments"/>
+		<CollectionView x:Name="collectionView" Margin="5" ItemTemplate="{StaticResource DataTemplate1}" ItemsSource="{Binding ItemCollection}" SelectionMode="Single" />
+	</VerticalStackLayout>
+	
+</ContentPage>
+[/sourcecode]
+<p>Where the Itemcollection looks like this:</p>
+[sourcecode language="csharp"]
+public class ItemViewModel : INotifyPropertyChanged
+{
+	public ItemViewModel( )	{}
+
+	public ItemViewModel( int categoryId)
+	{
+		this.ItemCollection = new ObservableCollection<Item>( );
+
+		for( int i = 0; i &lsaquo; 4; i++)
+		{
+			this.ItemCollection.Add( new Item( ) { Name = $"V1-{categoryId}", Description = $"c{categoryId}/T1 rocks"});
+		}
+	}
+
+	public ItemViewModel( int[] categoryIds)
+	{
+		this.ItemCollection = new ObservableCollection<Item>( );
+
+		for( int i = 0; i &lsaquo; categoryIds.Length; i++ )
+		{
+			int categoryId = categoryIds[i];
+			this.ItemCollection.Add( new Item( ) { Name = $"V1-{categoryId}", Description = $"c{categoryId}/T1 rocks"});
+		}
+	}
+
+	public event PropertyChangedEventHandler PropertyChanged;
+
+	protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+	{		
+		ArgumentNullException.ThrowIfNull(e);
+		PropertyChanged?.Invoke(this, e);
+	}
+
+	public ObservableCollection<Item> ItemCollection	{ get; set; }
+}
+[/sourcecode]
+<p>This will result in a nice flexible way of initialisation for tabs:</p>
+<table>
+<tbody>
+<tr>
+<td>
+<figure class="wp-block-image size-full"><img class="wp-image-13844" src="http://gtechcorner.com/wp-content/uploads/2023/01/t1.jpg" alt="Integer argument" /></figure>
+</td>
+<td>
+<figure class="wp-block-image size-full"><img class="wp-image-13845" src="http://gtechcorner.com/wp-content/uploads/2023/01/t2.jpg" alt="Integer argument" /></figure>
+</td>
+<td>
+<figure class="wp-block-image size-full"><img class="wp-image-13845" src="http://gtechcorner.com/wp-content/uploads/2023/01/t3.jpg" alt="Array of integers as argument" /></figure>
+</td>
+</tr>
+</tbody>
+</table>
+<p>An example project can be loaded from <a href="https://github.com/stephandeckers/maui_tab_argument.git" target="_blank" rel="noopener">here</a>.</p>
